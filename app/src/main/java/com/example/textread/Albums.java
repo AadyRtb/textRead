@@ -31,7 +31,11 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import java.net.URLEncoder;
+import java.util.List;
 
 public class Albums extends Activity {
     public static  String ressus;
@@ -76,7 +80,7 @@ public class Albums extends Activity {
                         resultden=accurateBasic(pathiden);
 
                         Log.d("flag","resultden1="+resultden);
-                        ressus=resultden;
+
 
 
                         if (Build.VERSION.SDK_INT >= 23) {
@@ -105,9 +109,8 @@ public class Albums extends Activity {
                     }
                 }.start();
 
-                final TextView txtdisplay = (TextView) findViewById(R.id.textt);
-                Log.d("flag","ressss="+ressus);
-                 txtdisplay.setText(ressus);
+
+
             }
         });
 
@@ -225,6 +228,20 @@ public class Albums extends Activity {
             String accessToken = token;
 
             String result = HttpUtil.post(url, accessToken, param);
+            ressus=result;
+            final TextView txtdisplay = (TextView) findViewById(R.id.textt);
+
+            if(ressus!=null) {
+                ressus = ressus.substring(27,ressus.length()-54);
+
+                ressus=ressus.replace("\"},{\"words\":\"","");
+//                    String[] fres=ressus.split("\"\\},\\{\"words\":\"") ;
+//                    for(int i=0;i<fres.length;i++){
+//                        System.out.println(fres[i]);
+//                    }
+            }
+            txtdisplay.setText(ressus);
+            Log.d("flag","result="+ressus);
             return result;
         } catch (Exception e) {
             e.printStackTrace();

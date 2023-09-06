@@ -126,6 +126,7 @@ public class Camera extends Activity {
                     }
                 }.start();
                 System.out.println(resultden);
+                Log.d("flag","ressss="+resultden);
             }
         });
 
